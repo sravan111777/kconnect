@@ -1,3 +1,0 @@
-# kconnect api
-
-## API Guide
