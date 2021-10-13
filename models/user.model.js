@@ -20,6 +20,10 @@ const schema = new Schema({
   lastLoginAt: {
     type: Date,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   isSuperAdmin: {
     type: Boolean,
     default: false,

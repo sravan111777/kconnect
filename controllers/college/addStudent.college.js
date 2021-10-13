@@ -61,7 +61,6 @@ const addStudent = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       message: "Issue on server side",
       code: 500,

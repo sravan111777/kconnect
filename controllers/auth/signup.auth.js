@@ -1,6 +1,7 @@
 const userModel = require("../../models/user.model");
 const checkUserExists = require("../../utils/checkUserExists");
 const bcrypt = require("bcrypt");
+const sendVerifEmail = require("../../utils/sendVerifEmail");
 
 const signup = async (req, res) => {
   try {
@@ -42,6 +43,10 @@ const signup = async (req, res) => {
         });
 
         await newUser.save();
+
+        let link = `https://api.kconnect.in/api/verify/${newUser._id}`;
+
+        sendVerifEmail(email, fullName, link);
 
         res.status(200).json({
           message: "Successfully created an account",

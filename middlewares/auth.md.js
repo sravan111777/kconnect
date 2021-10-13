@@ -18,10 +18,10 @@ const authCheck = async (req, res, next) => {
       const id = decoded.id;
 
       const user = await userModel
-        .findById(id, "fullName email isSuperAdmin role")
+        .findById(id, "fullName email isSuperAdmin role isVerified")
         .exec();
 
-      if (user == null) {
+      if (user == null || !user.isVerified) {
         return res.status(400).json({
           message: "Failed to authorize",
           code: 400,
