@@ -18,24 +18,35 @@ const getUsers = async (req, res) => {
         .findOne({ collegeAdmin: _id })
         .exec();
 
-      const collegeId = collegeAdmin._id;
-
-      const users = await userModel.find({ collegeId }).exec();
-
-      if (users.length === 0) {
-        res.status(200).json({
-          message: "No students available",
-          code: 200,
+      if (collegeAdmin == null) {
+        res.status(400).json({
+          message: "No data available",
+          code: 400,
           data: null,
-          isError: false,
+          isError: true,
         });
       } else {
-        res.status(200).json({
-          message: "Successfully fetched the data",
-          code: 200,
-          data: users,
-          isError: false,
-        });
+        const collegeId = collegeAdmin._id;
+
+        const users = await userModel.find({ collegeId }).exec();
+
+        if (users.length === 0) {
+          res.status(400).json({
+            message: "No students available",
+            code: 400,
+            count: users.length,
+            data: null,
+            isError: true,
+          });
+        } else {
+          res.status(200).json({
+            message: "Successfully fetched the data",
+            code: 200,
+            count: users.length,
+            data: users,
+            isError: false,
+          });
+        }
       }
     } else {
       res.status(400).json({
