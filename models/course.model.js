@@ -17,6 +17,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  plan: {
+    type: String,
+    enum: ["bronze", "silver", "gold"],
+  },
   categories: [
     {
       type: String,

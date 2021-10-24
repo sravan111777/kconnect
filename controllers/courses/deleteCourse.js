@@ -4,9 +4,8 @@ const chaptersModel = require("../../models/chapter.model");
 const deleteCourse = async (req, res) => {
   try {
     if (req.user.role !== "super_admin") {
-      res.status(400).json({
-        message: "Not authorized to create course",
-        code: 400,
+      res.status(200).json({
+        message: "Not authorized to delete course.",
         data: null,
         isError: true,
       });
@@ -14,11 +13,10 @@ const deleteCourse = async (req, res) => {
       const courseId = req.params.courseId;
 
       if (!courseId) {
-        res.status(400).json({
-          message: "Please provide the ID",
-          code: 400,
+        res.status(200).json({
+          message: "Please provide a valid ID.",
           data: null,
-          isDataError: true,
+          isError: true,
         });
       } else {
         await courseModel.findByIdAndDelete(courseId).exec();
@@ -26,17 +24,15 @@ const deleteCourse = async (req, res) => {
         await chaptersModel.deleteMany({ courseId: courseId }).exec();
 
         res.status(200).json({
-          message: "Successfully deleted the course",
-          code: 200,
+          message: "Successfully deleted the course.",
           data: null,
           isError: false,
         });
       }
     }
   } catch (error) {
-    res.status(500).json({
-      message: "Issue on server side",
-      code: 500,
+    res.status(200).json({
+      message: "Issue on server side.",
       error,
       isError: true,
     });

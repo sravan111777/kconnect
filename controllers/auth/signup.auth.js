@@ -8,20 +8,18 @@ const signup = async (req, res) => {
     const { fullName, email, password, role } = req.body;
     if (!fullName || !email || !password || !role) {
       // no data, send error
-      res.status(400).json({
-        message: "Please provide the data to signup",
-        code: 400,
+      res.status(200).json({
+        message: "Please provide the data to signup.",
         data: null,
-        isDataError: true,
+        isError: true,
       });
     } else {
       // check if user exists
       if (await checkUserExists(email)) {
-        res.status(400).json({
-          message: "Account already exists",
-          code: 400,
+        res.status(200).json({
+          message: "Account already exists.",
           data: null,
-          isAuthError: true,
+          isError: true,
         });
       } else {
         const hashPass = await bcrypt.hash(password, 10);
@@ -49,8 +47,7 @@ const signup = async (req, res) => {
         sendVerifEmail(email, fullName, link);
 
         res.status(200).json({
-          message: "Successfully created an account",
-          code: 200,
+          message: "Successfully created your account.",
           data: {
             email: newUser.email,
           },
@@ -59,10 +56,8 @@ const signup = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Issue on server side",
-      code: 500,
+    res.status(200).json({
+      message: "Issue on server side.",
       error,
       isError: true,
     });

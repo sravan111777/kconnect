@@ -5,9 +5,8 @@ const deleteMeeting = async (req, res) => {
     const meetingId = req.params.id;
 
     if (req.user.role !== "college_admin") {
-      res.status(400).json({
-        message: "Not authorized to get meetings",
-        code: 400,
+      res.status(200).json({
+        message: "Not authorized to get meetings.",
         data: null,
         isError: true,
       });
@@ -15,16 +14,14 @@ const deleteMeeting = async (req, res) => {
       await meetingModel.findByIdAndDelete(meetingId).exec();
 
       res.status(200).json({
-        message: "Deleted the meeting",
-        code: 200,
+        message: "Deleted the meeting.",
         data: null,
         isError: false,
       });
     }
   } catch (error) {
-    res.status(500).json({
-      message: "Issue on server side",
-      code: 500,
+    res.status(200).json({
+      message: "Issue on server side.",
       error,
       isError: true,
     });

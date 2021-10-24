@@ -3,9 +3,8 @@ const courseModel = require("../../models/course.model");
 const createCourse = async (req, res) => {
   try {
     if (req.user.role !== "super_admin") {
-      res.status(400).json({
-        message: "Not authorized to create course",
-        code: 400,
+      res.status(200).json({
+        message: "Not authorized to create course.",
         data: null,
         isError: true,
       });
@@ -23,11 +22,10 @@ const createCourse = async (req, res) => {
         !posterUrl ||
         !promoUrl
       ) {
-        res.status(400).json({
-          message: "Please provide the data",
-          code: 400,
+        res.status(200).json({
+          message: "Please provide the data.",
           data: null,
-          isDataError: true,
+          isError: true,
         });
       } else {
         const newCourse = new courseModel({
@@ -41,8 +39,7 @@ const createCourse = async (req, res) => {
         await newCourse.save();
 
         res.status(200).json({
-          message: "Successfully created the course",
-          code: 200,
+          message: "Successfully created the course.",
           data: {
             courseName,
           },
@@ -51,9 +48,8 @@ const createCourse = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({
-      message: "Issue on server side",
-      code: 500,
+    res.status(200).json({
+      message: "Issue on server side.",
       error,
       isError: true,
     });
