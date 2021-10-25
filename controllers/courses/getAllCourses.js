@@ -52,7 +52,6 @@ const getAllCourses = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(200).json({
       message: "Issue on server side.",
       error,

@@ -42,6 +42,7 @@ const createCourse = async (req, res) => {
           message: "Successfully created the course.",
           data: {
             courseName,
+            courseId: newCourse._id,
           },
           isError: false,
         });

@@ -5,19 +5,11 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Course",
   },
-  serialId: {
-    type: Number,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
   },
   description: {
-    type: String,
-    required: true,
-  },
-  duration: {
     type: String,
     required: true,
   },

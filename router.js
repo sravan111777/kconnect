@@ -19,6 +19,10 @@ const verifyCollege = require("./controllers/college/verify.college");
 const { subscribeToPlan, getPlan } = require("./controllers/college/plans");
 const createCourse = require("./controllers/courses/createCourse");
 const getAllCourses = require("./controllers/courses/getAllCourses");
+const getCourse = require("./controllers/courses/getCourse");
+const createChapter = require("./controllers/courses/createChapter");
+const deleteCourse = require("./controllers/courses/deleteCourse");
+const getChapter = require("./controllers/courses/getChapter");
 
 const router = Router();
 
@@ -55,6 +59,12 @@ router.delete("/meeting/:id", authCheck, deleteMeeting); // delete a meeting (co
 
 // courses
 router.post("/course", authCheck, createCourse);
+router.post("/chapter", authCheck, createChapter);
+
 router.get("/courses", authCheck, getAllCourses);
+router.get("/course/:courseId", authCheck, getCourse);
+router.get("/chapter/:chapterId", authCheck, getChapter);
+
+router.delete("/course/:chapterId", authCheck, deleteCourse);
 
 module.exports = router;
