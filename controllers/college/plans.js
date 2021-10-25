@@ -46,14 +46,27 @@ const subscribeToPlan = async (req, res) => {
 const getPlan = async (req, res) => {
   try {
     const { role } = req.user;
-    if (role === "college_admin" || role === "super_admin") {
+    if (role === "college_admin") {
       // get plan
-      const collegeId = req.user._id;
-      const plan = await collegeModel.findById(collegeId, "plan").exec();
+      const adminId = req.user._id;
+
+      const plan = await collegeModel
+        .findOne({ collegeAdmin: adminId }, "plan")
+        .exec();
 
       res.status(200).json({
         message: "Successfully grabbed your plan.",
-        data: plan,
+        data: plan.plan,
+        isError: false,
+      });
+    } else if (role === "super_admin") {
+      const allPlans = await collegeModel
+        .find()
+        .select("collegeName collegeEmail plan")
+        .exec();
+      res.status(200).json({
+        message: "Successfully grabbed your plans.",
+        data: allPlans,
         isError: false,
       });
     } else {
@@ -65,6 +78,7 @@ const getPlan = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error.name);
     res.status(200).json({
       message: "Issue on server side.",
       error,

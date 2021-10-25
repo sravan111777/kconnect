@@ -15,15 +15,24 @@ const getUsers = async (req, res) => {
       let colleges = [];
 
       for (let college of collegeInfo) {
-        const { collegeName, collegeEmail, collegeAdmin, students } = college;
+        const {
+          _id,
+          collegeName,
+          collegeEmail,
+          collegeAdmin,
+          students,
+          isApproved,
+        } = college;
 
         const admin = await userModel.findById(collegeAdmin, "fullName").exec();
 
         colleges.push({
+          id: _id,
           collegeName,
           collegeEmail,
           adminName: admin.fullName,
           students,
+          isApproved,
         });
       }
 
