@@ -4,11 +4,15 @@ const courseModel = require("../../models/course.model");
 
 const createChapter = async (req, res) => {
   try {
-    const courseId = req.body.courseId;
-
-    const { name, description, videos } = req.body;
+    const { name, description, videos, courseId } = req.body;
 
     if (!courseId || !name || !description || !videos) {
+      res.status(200).json({
+        message: "Please send all the data.",
+        data: null,
+        isError: true,
+      });
+    } else {
       const chapter = new chapterModel({
         courseId,
         name,
@@ -16,11 +20,10 @@ const createChapter = async (req, res) => {
         videos,
       });
       await chapter.save();
-    } else {
       res.status(200).json({
-        message: "Please send all the data.",
-        data: null,
-        isError: true,
+        message: "Successfully created the chapter.",
+        data: chapter,
+        isError: false,
       });
     }
   } catch (error) {

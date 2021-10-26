@@ -1,3 +1,4 @@
+const chapterModel = require("../../models/chapter.model");
 const courseModel = require("../../models/course.model");
 
 const getCourse = async (req, res) => {
@@ -6,9 +7,11 @@ const getCourse = async (req, res) => {
 
     const course = await courseModel.findById(courseId).exec();
 
+    const chapters = await chapterModel.find({ courseId: courseId }).exec();
+
     res.status(200).json({
       message: "Retreived all the courses.",
-      data: course,
+      data: { course, chapters },
       isError: false,
     });
   } catch (error) {
