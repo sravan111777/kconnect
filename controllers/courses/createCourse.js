@@ -14,13 +14,15 @@ const createCourse = async (req, res) => {
       const categories = req.body.categories;
       const posterUrl = req.body.posterUrl;
       const promoUrl = req.body.promoUrl;
+      const plan = req.body.plan;
 
       if (
         !courseName ||
         !courseInstructor ||
         !categories ||
         !posterUrl ||
-        !promoUrl
+        !promoUrl ||
+        !plan
       ) {
         res.status(200).json({
           message: "Please provide the data.",
@@ -34,6 +36,7 @@ const createCourse = async (req, res) => {
           categories,
           posterUrl,
           promoUrl,
+          plan,
         });
 
         await newCourse.save();
