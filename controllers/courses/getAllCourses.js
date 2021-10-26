@@ -4,7 +4,8 @@ const courseModel = require("../../models/course.model");
 const getAllCourses = async (req, res) => {
   try {
     if (req.user.role === "super_admin") {
-      const courses = await courseModel.find().exec();
+      const courses = await courseModel.find({}).exec();
+
       res.status(200).json({
         message: "Retreived all the courses.",
         data: courses,
@@ -26,8 +27,9 @@ const getAllCourses = async (req, res) => {
       });
     } else if (req.user.role === "student") {
       const studentId = req.user._id;
-
-      const college = await collegeModel.findById(studentId, "plan").exec();
+      const college = await collegeModel
+        .findOne({ students: studentId }, "plan")
+        .exec();
 
       if (college == null) {
         res.status(200).json({
