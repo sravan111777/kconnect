@@ -20,6 +20,12 @@ const createChapter = async (req, res) => {
         videos,
       });
       await chapter.save();
+
+      await courseModel
+        .findByIdAndUpdate(courseId, {
+          $push: { chapters: chapter._id },
+        })
+        .exec();
       res.status(200).json({
         message: "Successfully created the chapter.",
         data: chapter,
