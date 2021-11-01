@@ -24,6 +24,8 @@ const createChapter = require("./controllers/courses/createChapter");
 const deleteCourse = require("./controllers/courses/deleteCourse");
 const getChapter = require("./controllers/courses/getChapter");
 const getLimitedCourses = require("./controllers/courses/getLimitedCourses");
+const contactAdmin = require("./controllers/contactAdmin");
+const getContact = require("./controllers/getContacts");
 
 const router = Router();
 
@@ -42,6 +44,9 @@ router.delete("/user", authCheck, deleteUser);
 router.get("/verify/:id", verify);
 
 router.get("/users", authCheck, getUsers);
+
+router.post("/contact", contactAdmin);
+router.get("/contacts", authCheck, getContact);
 
 // college routes
 router.post("/college", authCheck, createCollege);
