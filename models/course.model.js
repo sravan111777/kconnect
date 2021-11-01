@@ -21,11 +21,9 @@ const schema = new Schema({
     type: String,
     enum: ["bronze", "silver", "gold"],
   },
-  categories: [
-    {
-      type: String,
-    },
-  ],
+  category: {
+    type: String,
+  },
   chapters: [
     {
       type: Schema.Types.ObjectId,
