@@ -23,6 +23,7 @@ const getCourse = require("./controllers/courses/getCourse");
 const createChapter = require("./controllers/courses/createChapter");
 const deleteCourse = require("./controllers/courses/deleteCourse");
 const getChapter = require("./controllers/courses/getChapter");
+const getLimitedCourses = require("./controllers/courses/getLimitedCourses");
 
 const router = Router();
 
@@ -62,6 +63,7 @@ router.post("/course", authCheck, createCourse);
 router.post("/chapter", authCheck, createChapter);
 
 router.get("/courses", authCheck, getAllCourses);
+router.get("/courses/:limit", getLimitedCourses);
 router.get("/course/:courseId", authCheck, getCourse);
 router.get("/chapter/:chapterId", authCheck, getChapter);
 
