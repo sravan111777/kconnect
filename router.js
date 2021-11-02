@@ -26,6 +26,7 @@ const getChapter = require("./controllers/courses/getChapter");
 const getLimitedCourses = require("./controllers/courses/getLimitedCourses");
 const contactAdmin = require("./controllers/contactAdmin");
 const getContact = require("./controllers/getContacts");
+const { addQuiz, getQuiz } = require("./controllers/courses/quiz");
 
 const router = Router();
 
@@ -73,5 +74,9 @@ router.get("/course/:courseId", authCheck, getCourse);
 router.get("/chapter/:chapterId", authCheck, getChapter);
 
 router.delete("/course/:chapterId", authCheck, deleteCourse);
+
+// quiz
+router.post("/quiz", addQuiz);
+router.get("/quiz/:courseId", getQuiz);
 
 module.exports = router;

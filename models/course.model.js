@@ -30,6 +30,9 @@ const schema = new Schema({
       ref: "Chapter",
     },
   ],
+  quiz: {
+    type: String,
+  },
 });
 
 module.exports = model("Course", schema);
