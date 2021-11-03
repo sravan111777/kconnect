@@ -27,6 +27,7 @@ const getUser = async (req, res) => {
         isSuperAdmin,
         role,
         collegeName: collegeName.collegeName,
+        isVerified: user.isVerified,
       });
     }
   } catch (error) {
