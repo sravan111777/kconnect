@@ -5,10 +5,10 @@ const getUser = async (req, res) => {
   try {
     const { _id, fullName, email, isSuperAdmin, role } = req.user;
 
-    const collegeId = await userModel.findById(_id, "collegeId").exec();
+    const user = await userModel.findById(_id, "collegeId isVerified").exec();
 
     const collegeName = await collegeModel
-      .findById(collegeId.collegeId, "collegeName")
+      .findById(user.collegeId, "collegeName")
       .exec();
     if (!collegeName) {
       res.status(200).json({
@@ -17,6 +17,7 @@ const getUser = async (req, res) => {
         email,
         isSuperAdmin,
         role,
+        isVerified: user.isVerified,
       });
     } else {
       res.status(200).json({
