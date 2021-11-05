@@ -11,7 +11,7 @@ const createCourse = async (req, res) => {
     } else {
       const courseName = req.body.courseName.trim();
       const courseInstructor = req.body.courseInstructor.trim();
-      const categories = req.body.categories;
+      const category = req.body.category;
       const posterUrl = req.body.posterUrl;
       const promoUrl = req.body.promoUrl;
       const plan = req.body.plan;
