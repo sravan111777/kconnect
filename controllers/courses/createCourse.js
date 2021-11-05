@@ -19,7 +19,7 @@ const createCourse = async (req, res) => {
       if (
         !courseName ||
         !courseInstructor ||
-        !categories ||
+        !category ||
         !posterUrl ||
         !promoUrl ||
         !plan
@@ -33,7 +33,7 @@ const createCourse = async (req, res) => {
         const newCourse = new courseModel({
           courseName,
           courseInstructor,
-          categories,
+          category,
           posterUrl,
           promoUrl,
           plan,
