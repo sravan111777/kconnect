@@ -73,7 +73,7 @@ router.get("/courses/:limit", getLimitedCourses);
 router.get("/course/:courseId", authCheck, getCourse);
 router.get("/chapter/:chapterId", authCheck, getChapter);
 
-router.delete("/course/:chapterId", authCheck, deleteCourse);
+router.delete("/course/:courseId", authCheck, deleteCourse);
 
 // quiz
 router.post("/quiz", addQuiz);
