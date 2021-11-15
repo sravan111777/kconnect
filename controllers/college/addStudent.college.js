@@ -18,7 +18,8 @@ const addStudent = async (req, res) => {
         user &&
         req.user.role === "college_admin" &&
         user.role !== "super_admin" &&
-        user.role !== "college_admin"
+        user.role !== "college_admin" &&
+        user.collegeId === undefined
       ) {
         const college = await collegeModel
           .findOne({ collegeAdmin: req.user._id })
