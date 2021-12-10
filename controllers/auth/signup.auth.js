@@ -1,15 +1,15 @@
-const userModel = require("../../models/user.model");
-const checkUserExists = require("../../utils/checkUserExists");
-const bcrypt = require("bcrypt");
-const sendVerifEmail = require("../../utils/sendVerifEmail");
+const userModel = require('../../models/user.model');
+const checkUserExists = require('../../utils/checkUserExists');
+const bcrypt = require('bcrypt');
+const sendVerifEmail = require('../../utils/sendVerifEmail');
 
 const signup = async (req, res) => {
   try {
-    const { fullName, email, password, role } = req.body;
-    if (!fullName || !email || !password || !role) {
+    const { fullName, email, password, role, phone } = req.body;
+    if (!fullName || !email || !password || !role || !phone) {
       // no data, send error
       res.status(200).json({
-        message: "Please provide the data to signup.",
+        message: 'Please provide the data to signup.',
         data: null,
         isError: true,
       });
@@ -17,7 +17,7 @@ const signup = async (req, res) => {
       // check if user exists
       if (await checkUserExists(email)) {
         res.status(200).json({
-          message: "Account already exists.",
+          message: 'Account already exists.',
           data: null,
           isError: true,
         });
@@ -26,7 +26,7 @@ const signup = async (req, res) => {
 
         let isSuperAdmin = false;
 
-        if (role === "super_admin") {
+        if (role === 'super_admin') {
           isSuperAdmin = true;
         } else {
           isSuperAdmin = false;
@@ -37,6 +37,7 @@ const signup = async (req, res) => {
           email,
           password: hashPass,
           role,
+          phone,
           isSuperAdmin,
         });
 
@@ -47,7 +48,7 @@ const signup = async (req, res) => {
         sendVerifEmail(email, fullName, link);
 
         res.status(200).json({
-          message: "Successfully created your account.",
+          message: 'Successfully created your account.',
           data: {
             email: newUser.email,
           },
@@ -56,8 +57,9 @@ const signup = async (req, res) => {
       }
     }
   } catch (error) {
+    console.error(error);
     res.status(200).json({
-      message: "Issue on server side.",
+      message: 'Issue on server side.',
       error,
       isError: true,
     });

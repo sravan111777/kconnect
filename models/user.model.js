@@ -1,4 +1,5 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 const schema = new Schema({
   fullName: {
@@ -8,6 +9,17 @@ const schema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
+  },
+  phone: {
+    type: Number,
+    unique: true,
+    validate: {
+      validator: function (v) {
+        return /^[\d]{7,13}$/.test(v);
+      },
+      message: '{VALUE} is not a valid phone number!',
+    },
   },
   password: {
     type: String,
@@ -30,14 +42,15 @@ const schema = new Schema({
   },
   role: {
     type: String,
-    enum: ["student", "college_admin", "super_admin"],
-    default: "student",
+    enum: ['student', 'college_admin', 'super_admin'],
+    default: 'student',
   },
   collegeId: {
     type: Schema.Types.ObjectId,
-    ref: "College",
+    ref: 'College',
     required: false,
   },
 });
+schema.plugin(uniqueValidator);
 
-module.exports = model("User", schema);
+module.exports = model('User', schema);
