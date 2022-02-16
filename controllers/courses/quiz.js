@@ -6,6 +6,14 @@ const addQuiz = async (req, res) => {
   try {
     const { courseId, quiz } = req.body;
 
+    if (!quiz || quiz == null) {
+      throw "Quiz cannot be empty";
+    }
+
+    if (!courseId) {
+      throw "CouseId cannot be empty";
+    }
+
     await courseModel.findByIdAndUpdate(courseId, { quiz }).exec();
 
     res.status(200).json({
@@ -14,7 +22,7 @@ const addQuiz = async (req, res) => {
       isError: false,
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       message: "Issue on server side.",
       error,
       isError: true,
