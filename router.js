@@ -81,7 +81,7 @@ router.delete("/course/:courseId", authCheck, deleteCourse);
 
 // quiz
 router.post("/quiz", addQuiz);
-router.get("/quiz/getAllQuizzes", authCheck, getAllQuizzes);
+router.get("/quiz/getAllQuizzes", authCheck, getAllQuizzes); //list all quizzes for super_admin
 router.get("/quiz/:courseId", getQuiz);
 
 module.exports = router;

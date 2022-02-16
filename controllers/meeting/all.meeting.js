@@ -5,6 +5,7 @@ const userModel = require("../../models/user.model");
 const getAllMeetings = async (req, res) => {
   try {
     if (req.user.role === "student") {
+      // for student................................................
       const studentId = req.user._id;
 
       const college = await userModel.findById(studentId, "collegeId").exec();
@@ -24,13 +25,14 @@ const getAllMeetings = async (req, res) => {
           isError: false,
         });
       } else {
-        res.status(200).json({
+        res.status(400).json({
           message: "Failed to get meetings.",
           data: null,
           isError: true,
         });
       }
     } else if (req.user.role === "college_admin") {
+      //for college admin.......................................
       const collegeAdmin = req.user._id;
 
       const meetings = await meetingModel.find({ issuedBy: collegeAdmin });
@@ -42,8 +44,26 @@ const getAllMeetings = async (req, res) => {
           isError: false,
         });
       } else {
-        res.status(200).json({
+        res.status(400).json({
           message: "Failed to get meetings.",
+          data: null,
+          isError: true,
+        });
+      }
+    } else if (req.user.role === "super_admin") {
+      // for super admin.........................................
+
+      const meetings = await meetingModel.find();
+
+      if (!!meetings) {
+        res.status(200).json({
+          message: "Successfully fetched the meetings",
+          data: meetings,
+          isError: false,
+        });
+      } else {
+        res.status(400).json({
+          message: "Failed to get meetings",
           data: null,
           isError: true,
         });

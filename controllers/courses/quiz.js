@@ -1,7 +1,7 @@
 const courseModel = require("../../models/course.model");
 
-//the quiz get posted even if the body is empty
-//error status codes are set to 200 but instead 400 codes should be used.
+//the quiz get posted even if the body is empty(solved)
+//error status codes are set to 200 but instead 400 codes should be used.(solved)
 const addQuiz = async (req, res) => {
   try {
     const { courseId, quiz } = req.body;
@@ -33,6 +33,10 @@ const addQuiz = async (req, res) => {
 const getQuiz = async (req, res) => {
   try {
     const courseId = req.params.courseId;
+
+    if (!courseId) {
+      throw "CourseId cannot be empty";
+    }
 
     const course = await courseModel.findById(courseId).select("quiz").exec();
 
