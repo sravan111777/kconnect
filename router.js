@@ -26,7 +26,11 @@ const getChapter = require("./controllers/courses/getChapter");
 const getLimitedCourses = require("./controllers/courses/getLimitedCourses");
 const contactAdmin = require("./controllers/contactAdmin");
 const getContact = require("./controllers/getContacts");
-const { addQuiz, getQuiz } = require("./controllers/courses/quiz");
+const {
+  addQuiz,
+  getQuiz,
+  getAllQuizzes,
+} = require("./controllers/courses/quiz");
 
 const router = Router();
 
@@ -77,6 +81,7 @@ router.delete("/course/:courseId", authCheck, deleteCourse);
 
 // quiz
 router.post("/quiz", addQuiz);
+router.get("/quiz/getAllQuizzes", authCheck, getAllQuizzes);
 router.get("/quiz/:courseId", getQuiz);
 
 module.exports = router;
