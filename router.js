@@ -2,6 +2,7 @@ const { Router } = require("express");
 const login = require("./controllers/auth/login.auth");
 const signup = require("./controllers/auth/signup.auth");
 const forgetPassword = require("./controllers/auth/forgetPassword");
+const resetPassword = require("./controllers/auth/resetPassword");
 const createCollege = require("./controllers/college/create.college");
 const getUsers = require("./controllers/user/all.user");
 const deleteUser = require("./controllers/user/delete.user");
@@ -44,14 +45,18 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 //forget password route
-router.post("/forgetPassword", forgetPassword);
+router.put("/forgetPassword", forgetPassword);
+router.put("/resetPassword", resetPassword);
+
+//forget password email verification route
+router.get("/passwordResetEmailVerification/:verificationToken");
 
 // user routes
 router.get("/user", authCheck, getUser);
 router.put("/user", authCheck, updateUser);
 router.delete("/user", authCheck, deleteUser);
 
-// for verification of email ids....
+// sign-up email verification route....
 router.get("/verify/:id", verify);
 
 router.get("/users", authCheck, getUsers);

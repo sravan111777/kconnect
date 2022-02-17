@@ -17,7 +17,7 @@ const login = async (req, res) => {
       // check if user exists
       const user = await checkUserExists(email);
       if (user == null) {
-        res.status(200).json({
+        res.status(401).json({
           message: "Failed to find your account",
           data: null,
           isError: true,

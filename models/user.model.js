@@ -38,6 +38,10 @@ const schema = new Schema({
     ref: "College",
     required: false,
   },
+  resetLink: {
+    data: String,
+    default: "",
+  },
 });
 
 module.exports = model("User", schema);
