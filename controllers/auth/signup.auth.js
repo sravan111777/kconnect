@@ -41,7 +41,7 @@ const signup = async (req, res) => {
         });
 
         await newUser.save();
-
+        // let link = `http://localhost:8000/api/verify/${newUser._id}`;
         let link = `https://api.kconnect.in/api/verify/${newUser._id}`;
 
         sendVerifEmail(email, fullName, link);

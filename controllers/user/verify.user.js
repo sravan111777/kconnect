@@ -5,14 +5,16 @@ const verify = async (req, res) => {
     const userId = req.params.id.trim();
 
     if (userId === undefined || userId === "") {
-      res.send("Wrong user!");
+      res
+        .status(400)
+        .json({ message: "Wrong user", data: null, isError: true });
     } else {
       await userModel
         .findByIdAndUpdate(userId, {
           isVerified: true,
         })
         .exec();
-      res.send(`Successfully verified the user!`);
+      res.redirect("https://www.kconnect.in/login");
     }
   } catch (error) {
     res.send(error);
