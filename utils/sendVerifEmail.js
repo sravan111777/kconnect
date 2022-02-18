@@ -19,6 +19,7 @@ const sendVerifEmail = (email, fullName, link) => {
         name: fullName,
       },
     ],
+    htmlContent: "to reset your password click on the following link",
     templateId: 6,
     params: {
       EMAIL: email,

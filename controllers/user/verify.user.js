@@ -14,7 +14,7 @@ const verify = async (req, res) => {
           isVerified: true,
         })
         .exec();
-      res.redirect("https://www.kconnect.in/login");
+      res.redirect(`${process.env.FRONT_END_URL}/login`);
     }
   } catch (error) {
     res.send(error);
