@@ -15,6 +15,7 @@ const createCourse = async (req, res) => {
       const posterUrl = req.body.posterUrl;
       const promoUrl = req.body.promoUrl;
       const plan = req.body.plan;
+      const sliderUrl = req.body.sliderUrl;
 
       if (
         !courseName ||
@@ -22,9 +23,10 @@ const createCourse = async (req, res) => {
         !category ||
         !posterUrl ||
         !promoUrl ||
-        !plan
+        !plan ||
+        !sliderUrl
       ) {
-        res.status(200).json({
+        res.status(400).json({
           message: "Please provide the data.",
           data: null,
           isError: true,
@@ -36,6 +38,7 @@ const createCourse = async (req, res) => {
           category,
           posterUrl,
           promoUrl,
+          sliderUrl,
           plan,
         });
 
