@@ -37,7 +37,7 @@ const {
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.send("welcome to kconnect!");
+  res.send("welcome to kconnect!!");
 });
 
 // auth routes
