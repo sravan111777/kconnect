@@ -18,15 +18,15 @@ const createCourse = async (req, res) => {
       const sliderUrl = req.body.sliderUrl;
 
       if (
-        !courseName ||
-        !courseInstructor ||
-        !category ||
-        !posterUrl ||
-        !promoUrl ||
-        !plan ||
-        !sliderUrl
+        !!!courseName ||
+        !!!courseInstructor ||
+        !!!category ||
+        !!!posterUrl ||
+        !!!promoUrl ||
+        !!!plan ||
+        !!!sliderUrl
       ) {
-        res.status(400).json({
+        return res.status(400).json({
           message: "Please provide the data.",
           data: null,
           isError: true,
@@ -55,7 +55,7 @@ const createCourse = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(200).json({
+    res.status(500).json({
       message: "Issue on server side.",
       error,
       isError: true,
