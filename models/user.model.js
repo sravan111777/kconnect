@@ -13,6 +13,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
   registeredAt: {
     type: Date,
     default: new Date(),

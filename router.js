@@ -33,6 +33,8 @@ const {
   getQuiz,
   getAllQuizzes,
 } = require("./controllers/courses/quiz");
+const sendOtp = require("./controllers/auth/mobileAuth/sendOtp");
+const verifyOtp = require("./controllers/auth/mobileAuth/verifyOtp");
 
 const router = Router();
 
@@ -44,12 +46,13 @@ router.get("/", (req, res) => {
 router.post("/signup", signup);
 router.post("/login", login);
 
+//auth with mobile
+router.post("/otpLogin/sendOtp", sendOtp);
+router.post("/otpLogin/verifyOtp", verifyOtp);
+
 //forget password route
 router.put("/forgetPassword", forgetPassword);
 router.put("/resetPassword", resetPassword);
-
-//forget password email verification route
-router.get("/passwordResetEmailVerification/:verificationToken");
 
 // user routes
 router.get("/user", authCheck, getUser);
