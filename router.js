@@ -35,6 +35,8 @@ const {
 } = require("./controllers/courses/quiz");
 const sendOtp = require("./controllers/auth/mobileAuth/sendOtp");
 const verifyOtp = require("./controllers/auth/mobileAuth/verifyOtp");
+const getBannerUrl = require("./controllers/banner/getBannerUrl");
+const changeBannerUrl = require("./controllers/banner/changeBannerUrl");
 
 const router = Router();
 
@@ -54,6 +56,9 @@ router.post("/otpLogin/verifyOtp", verifyOtp);
 router.put("/forgetPassword", forgetPassword);
 router.put("/resetPassword", resetPassword);
 
+//home screen banner routes
+router.get("/getBannerUrl", getBannerUrl);
+router.put("/changeBannerUrl", authCheck, changeBannerUrl);
 // user routes
 router.get("/user", authCheck, getUser);
 router.put("/user", authCheck, updateUser);
