@@ -2,11 +2,12 @@ const userModel = require("../../models/user.model");
 const checkUserExists = require("../../utils/checkUserExists");
 const bcrypt = require("bcrypt");
 const sendVerifEmail = require("../../utils/sendVerifEmail");
+var checkNumberExists = require("../../utils/checkNumberExists");
 
 const signup = async (req, res) => {
   try {
-    const { fullName, email, password, role } = req.body;
-    if (!fullName || !email || !password || !role) {
+    const { fullName, email, password, role, number } = req.body;
+    if (!fullName || !email || !password || !role || !number) {
       // no data, send error
       res.status(200).json({
         message: "Please provide the data to signup.",
@@ -16,8 +17,14 @@ const signup = async (req, res) => {
     } else {
       // check if user exists
       if (await checkUserExists(email)) {
-        res.status(200).json({
+        return res.status(200).json({
           message: "Account already exists.",
+          data: null,
+          isError: true,
+        });
+      } else if (!!(await checkNumberExists(number))) {
+        return res.status(200).json({
+          message: "Account with this number already exists.",
           data: null,
           isError: true,
         });
@@ -37,6 +44,7 @@ const signup = async (req, res) => {
           email,
           password: hashPass,
           role,
+          phoneNumber: number,
           isSuperAdmin,
         });
 
