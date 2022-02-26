@@ -4,7 +4,13 @@ const checkUser = require("../../utils/checkUserExists");
 
 const addStudent = async (req, res) => {
   try {
-    const { studentEmail } = req.body;
+    const {
+      studentEmail,
+      studentBranch,
+      studentPhone,
+      studentAge,
+      studentSubject,
+    } = req.body;
 
     if (!studentEmail) {
       res.status(200).json({
