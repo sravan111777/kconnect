@@ -3,19 +3,19 @@ const courseModel = require("../../models/course.model");
 const createCourse = async (req, res) => {
   try {
     if (req.user.role !== "super_admin") {
-      res.status(200).json({
+      return res.status(401).json({
         message: "Not authorized to create course.",
         data: null,
         isError: true,
       });
     } else {
-      const courseName = req.body.courseName.trim();
-      const courseInstructor = req.body.courseInstructor.trim();
-      const category = req.body.category;
-      const posterUrl = req.body.posterUrl;
-      const promoUrl = req.body.promoUrl;
-      const plan = req.body.plan;
-      const sliderUrl = req.body.sliderUrl;
+      let { courseName } = req.body;
+      let { courseInstructor } = req.body;
+      const { category } = req.body;
+      const { posterUrl } = req.body;
+      const { promoUrl } = req.body;
+      const { plan } = req.body;
+      const { sliderUrl } = req.body;
 
       if (
         !!!courseName ||
@@ -32,6 +32,9 @@ const createCourse = async (req, res) => {
           isError: true,
         });
       } else {
+        courseName = courseName.trim();
+        courseInstructor = courseInstructor.trim();
+
         const newCourse = new courseModel({
           courseName,
           courseInstructor,
