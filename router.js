@@ -37,6 +37,7 @@ const sendOtp = require("./controllers/auth/mobileAuth/sendOtp");
 const verifyOtp = require("./controllers/auth/mobileAuth/verifyOtp");
 const getBannerUrl = require("./controllers/banner/getBannerUrl");
 const changeBannerUrl = require("./controllers/banner/changeBannerUrl");
+const updateCourse = require("./controllers/courses/updateCourse");
 
 const router = Router();
 
@@ -93,9 +94,14 @@ router.post("/chapter", authCheck, createChapter);
 
 router.get("/courses", authCheck, getAllCourses);
 router.get("/courses/:limit", getLimitedCourses);
+
+//update course
+router.put("/course/updateCourse/:courseId", authCheck, updateCourse);
+
 router.get("/course/:courseId", authCheck, getCourse);
 router.get("/chapter/:chapterId", authCheck, getChapter);
 
+//delete course
 router.delete("/course/:courseId", authCheck, deleteCourse);
 
 // quiz
