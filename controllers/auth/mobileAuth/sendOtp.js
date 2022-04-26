@@ -25,19 +25,16 @@ const sendOtp = async (req, res) => {
 
     //sending otp....
     const client = require("twilio")(accountSid, authToken);
-    const verification = await client.verify
+    client.verify
       .services(process.env.TWILIO_SERVICE_SID)
-      .verifications.create({ to: number, channel: "sms" });
-
-    const status = verification.status;
-
-    if (status) {
-      return res.status(200).json({
-        message: "Successfully send otp",
-        data: null,
-        isError: false,
+      .verifications.create({ to: number, channel: "sms" })
+      .then((verification) => {
+        return res.status(200).json({
+          message: "Successfully send otp",
+          data: null,
+          isError: false,
+        });
       });
-    }
   } catch (error) {
     res.status(500).json({
       message: "Issue on server side.",
