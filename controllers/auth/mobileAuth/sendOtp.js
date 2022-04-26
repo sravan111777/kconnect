@@ -30,7 +30,7 @@ const sendOtp = async (req, res) => {
       .verifications.create({ to: number, channel: "sms" })
       .then((verification) => {
         return res.status(200).json({
-          message: "Successfully send otp",
+          message: "Otp send successfully",
           data: null,
           isError: false,
         });
