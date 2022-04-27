@@ -1,6 +1,6 @@
 let SibApiV3Sdk = require("sib-api-v3-sdk");
 
-const sendVerifEmail = (email, fullName, link) => {
+const sendResetPasswordMail = (email, fullName, link) => {
   let defaultClient = SibApiV3Sdk.ApiClient.instance;
 
   // Configure API key authorization: api-key
@@ -23,11 +23,10 @@ const sendVerifEmail = (email, fullName, link) => {
       <html lang="en">
         <body>
           <center>
-            <h1>Verify your Kconnect Account</h1>
+            <h1>Reset Password of your Kconnect Account</h1>
             <br />
             <p>
-              To start using your Kconnect Account, please click on the link below to
-              verify the account!
+              To reset password of your Kconnect Account, please click on the link below
             </p>
             <P>{{params.OPT_IN}}</P>
           </center>
@@ -42,7 +41,7 @@ const sendVerifEmail = (email, fullName, link) => {
   return apiInstance
     .sendTransacEmail({
       sender: { email: "mywork.ioninks@gmail.com", name: "Kconnect Team" },
-      subject: "Verify Email with Kconnect",
+      subject: "Reset Password of Kconnect",
 
       ...sendSmtpEmail,
     })
@@ -54,4 +53,4 @@ const sendVerifEmail = (email, fullName, link) => {
     });
 };
 
-module.exports = sendVerifEmail;
+module.exports = sendResetPasswordMail;
