@@ -70,7 +70,7 @@ const deleteQuiz = async (req, res) => {
           data: null,
           isError: true,
         });
-      course.quiz = null;
+      course.quiz = undefined;
       await course.save();
 
       return res.status(200).json({
