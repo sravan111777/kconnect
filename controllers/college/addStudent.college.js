@@ -4,16 +4,10 @@ const checkUser = require("../../utils/checkUserExists");
 
 const addStudent = async (req, res) => {
   try {
-    const {
-      studentEmail,
-      studentBranch,
-      studentPhone,
-      studentAge,
-      studentSubject,
-    } = req.body;
+    const { studentEmail } = req.body;
 
     if (!studentEmail) {
-      res.status(200).json({
+      res.status(400).json({
         message: "Please provide the data to signup.",
         data: null,
         isError: true,
@@ -33,8 +27,8 @@ const addStudent = async (req, res) => {
 
         if (college.isApproved) {
           if (college.students.includes(user._id)) {
-            res.status(200).json({
-              message: "Failed to add the student.",
+            res.status(400).json({
+              message: "The student aready exists.",
               data: null,
               isError: true,
             });
@@ -58,14 +52,14 @@ const addStudent = async (req, res) => {
             });
           }
         } else {
-          res.status(200).json({
+          res.status(400).json({
             message: "College is not approved by Admins.",
             data: null,
             isError: true,
           });
         }
       } else {
-        res.status(200).json({
+        res.status(400).json({
           message: "Failed to add the student.",
           data: null,
           isError: true,
@@ -73,7 +67,7 @@ const addStudent = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(200).json({
+    res.status(500).json({
       message: "Issue on server side.",
       error,
       isError: true,
