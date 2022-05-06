@@ -32,6 +32,7 @@ const {
   addQuiz,
   getQuiz,
   getAllQuizzes,
+  deleteQuiz,
 } = require("./controllers/courses/quiz");
 const sendOtp = require("./controllers/auth/mobileAuth/sendOtp");
 const verifyOtp = require("./controllers/auth/mobileAuth/verifyOtp");
@@ -107,6 +108,7 @@ router.delete("/course/:courseId", authCheck, deleteCourse);
 // quiz
 router.post("/quiz", addQuiz);
 router.get("/quiz/getAllQuizzes", authCheck, getAllQuizzes); //list all quizzes for super_admin
+router.post("/quiz/deleteQuiz", authCheck, deleteQuiz); //delete quiz by super admin
 router.get("/quiz/:courseId", getQuiz);
 
 module.exports = router;

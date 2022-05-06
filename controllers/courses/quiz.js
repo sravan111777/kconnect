@@ -54,6 +54,45 @@ const getQuiz = async (req, res) => {
   }
 };
 
+//delete a quiz..
+const deleteQuiz = async (req, res) => {
+  try {
+    const courseId = req.body.courseId;
+
+    if (!courseId) {
+      throw "CourseId cannot be empty";
+    }
+    if (req.user.role === "super_admin") {
+      const course = await courseModel.findById(courseId).select("quiz").exec();
+      if (!course || !course.quiz)
+        return res.status(400).json({
+          message: "The required quiz does not exist",
+          data: null,
+          isError: true,
+        });
+      course.quiz = null;
+      await course.save();
+
+      return res.status(200).json({
+        message: "Deleted the quiz successfully.",
+        data: null,
+        isError: false,
+      });
+    } else {
+      res.status(401).json({
+        message: "User not authorized",
+        isError: true,
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      message: "Issue on server side.",
+      error,
+      isError: true,
+    });
+  }
+};
+
 //get all quizzes having  non empty quiz field (only for super admin)
 
 const getAllQuizzes = async (req, res) => {
@@ -84,4 +123,4 @@ const getAllQuizzes = async (req, res) => {
   }
 };
 
-module.exports = { addQuiz, getQuiz, getAllQuizzes };
+module.exports = { addQuiz, getQuiz, getAllQuizzes, deleteQuiz };
