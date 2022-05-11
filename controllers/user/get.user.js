@@ -3,7 +3,7 @@ const userModel = require("../../models/user.model");
 
 const getUser = async (req, res) => {
   try {
-    const { _id, fullName, email, isSuperAdmin, role } = req.user;
+    const { _id, fullName, email, isSuperAdmin, role, profilePhoto } = req.user;
 
     const user = await userModel.findById(_id, "collegeId isVerified").exec();
 
@@ -15,6 +15,7 @@ const getUser = async (req, res) => {
         id: _id,
         fullName,
         email,
+        profilePhoto,
         isSuperAdmin,
         role,
         isVerified: user.isVerified,

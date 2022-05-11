@@ -7,7 +7,7 @@ const getUsers = async (req, res) => {
     if (isSuperAdmin) {
       const students = await userModel
         .find({ role: "student" })
-        .select("fullName email registeredAt role collegeId")
+        .select("fullName email registeredAt role collegeId profilePhoto")
         .exec();
 
       const collegeInfo = await collegeModel.find().exec();

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const multer = require("multer");
 const login = require("./controllers/auth/login.auth");
 const signup = require("./controllers/auth/signup.auth");
 const forgetPassword = require("./controllers/auth/forgetPassword");
@@ -39,15 +40,22 @@ const verifyOtp = require("./controllers/auth/mobileAuth/verifyOtp");
 const getBannerUrl = require("./controllers/banner/getBannerUrl");
 const changeBannerUrl = require("./controllers/banner/changeBannerUrl");
 const updateCourse = require("./controllers/courses/updateCourse");
+const updateUserProfilePhoto = require("./controllers/user/updateUserProfilePhoto");
 
 const router = Router();
+const formData = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024, // keep file size < 10 MB
+  },
+});
 
 router.get("/", (req, res) => {
   res.send("welcome to kconnect!!");
 });
 
 // auth routes
-router.post("/signup", signup);
+router.post("/signup", formData.single("profilePhoto"), signup);
 router.post("/login", login);
 
 //auth with mobile
@@ -64,6 +72,12 @@ router.put("/changeBannerUrl", authCheck, changeBannerUrl);
 // user routes
 router.get("/user", authCheck, getUser);
 router.put("/user", authCheck, updateUser);
+router.patch(
+  "/user/updateProfilePhoto",
+  authCheck,
+  formData.single("profilePhoto"),
+  updateUserProfilePhoto
+);
 router.delete("/user", authCheck, deleteUser);
 
 // sign-up email verification route....

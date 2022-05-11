@@ -17,7 +17,10 @@ const authCheck = async (req, res, next) => {
       const id = decoded.id;
 
       const user = await userModel
-        .findById(id, "fullName email isSuperAdmin role isVerified")
+        .findById(
+          id,
+          "fullName email isSuperAdmin role isVerified phoneNumber profilePhoto"
+        )
         .exec();
 
       if (user == null || !user.isVerified) {
