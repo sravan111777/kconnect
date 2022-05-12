@@ -6,12 +6,11 @@ const getUser = async (req, res) => {
     const { _id } = req.user;
 
     const user = await userModel.findById(_id).select("-password").exec();
-    console.log(user);
     const college = await collegeModel.findById(user.collegeId).exec();
     if (!college) {
       res.json({
         message: "Successful",
-        data: user,
+        data: { user: user },
         isError: false,
       });
     } else {
