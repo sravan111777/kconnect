@@ -2,7 +2,7 @@ const courseModel = require("../../models/course.model");
 
 const createCourse = async (req, res) => {
   try {
-    if (req.user.role !== "super_admin") {
+    if (req.user.role !== "super_admin" || req.user.role !== "college_admin") {
       return res.status(401).json({
         message: "Not authorized to create course.",
         data: null,

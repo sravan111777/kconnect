@@ -21,6 +21,7 @@ const getMeeting = async (req, res) => {
           data: {
             title: meeting.title,
             link: meeting.link,
+            description: meetings.description,
             scheduledAt: meeting.scheduledAt,
           },
           isError: false,

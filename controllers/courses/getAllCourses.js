@@ -1,10 +1,14 @@
 const collegeModel = require("../../models/college.model");
 const courseModel = require("../../models/course.model");
 
+//work on this route an
+
 const getAllCourses = async (req, res) => {
   try {
     if (req.user.role === "super_admin") {
       const courses = await courseModel.find({}).exec();
+
+      let filter = null;
 
       res.status(200).json({
         message: "Retreived all the courses.",
@@ -18,8 +22,16 @@ const getAllCourses = async (req, res) => {
         .findOne({ collegeAdmin: adminId }, "plan")
         .exec();
 
-      const courses = await courseModel.find({ plan: college.plan }).exec();
+      if (college.plan === "gold") {
+        filter = ["gold", "silver", "bronze"];
+      } else if (college.plan === "silver") {
+        filter = ["silver", "bronze"];
+      } else {
+        filter = college.plan;
+      }
+      const courses = await courseModel.find({ plan: filter }).exec();
 
+      console.log(courses);
       res.status(200).json({
         message: "Retreived all the courses.",
         data: courses,
@@ -38,7 +50,14 @@ const getAllCourses = async (req, res) => {
           isError: true,
         });
       } else {
-        const courses = await courseModel.find({ plan: college.plan }).exec();
+        if (college.plan === "gold") {
+          filter = ["gold", "silver", "bronze"];
+        } else if (college.plan === "silver") {
+          filter = ["silver", "bronze"];
+        } else {
+          filter = college.plan;
+        }
+        const courses = await courseModel.find({ plan: filter }).exec();
 
         res.status(200).json({
           message: "Retreived all the courses.",

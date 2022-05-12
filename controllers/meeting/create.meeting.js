@@ -14,8 +14,9 @@ const createMeeting = async (req, res) => {
 
       const title = req.body.title.trim();
       const link = req.body.link.trim();
+      const description = req.body.description.trim();
 
-      if (!title || !link) {
+      if (!title || !link || !description) {
         res.status(400).json({
           message: "Please provide the data",
           code: 400,
@@ -25,6 +26,7 @@ const createMeeting = async (req, res) => {
       } else {
         const newMeeting = new meetingModel({
           title,
+          description,
           link,
           issuedBy: collegeAdmin,
         });

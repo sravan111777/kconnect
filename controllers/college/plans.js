@@ -60,10 +60,7 @@ const getPlan = async (req, res) => {
         isError: false,
       });
     } else if (role === "super_admin") {
-      const allPlans = await collegeModel
-        .find()
-        .select("collegeName collegeEmail plan")
-        .exec();
+      const allPlans = await collegeModel.find();
       res.status(200).json({
         message: "Successfully grabbed your plans.",
         data: allPlans,

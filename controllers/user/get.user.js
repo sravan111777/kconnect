@@ -3,32 +3,22 @@ const userModel = require("../../models/user.model");
 
 const getUser = async (req, res) => {
   try {
-    const { _id, fullName, email, isSuperAdmin, role, profilePhoto } = req.user;
+    const { _id } = req.user;
 
-    const user = await userModel.findById(_id, "collegeId isVerified").exec();
-
-    const collegeName = await collegeModel
-      .findById(user.collegeId, "collegeName")
-      .exec();
-    if (!collegeName) {
-      res.status(200).json({
-        id: _id,
-        fullName,
-        email,
-        profilePhoto,
-        isSuperAdmin,
-        role,
-        isVerified: user.isVerified,
+    const user = await userModel.findById(_id).select("-password").exec();
+    console.log(user);
+    const college = await collegeModel.findById(user.collegeId).exec();
+    if (!college) {
+      res.json({
+        message: "Successful",
+        data: user,
+        isError: false,
       });
     } else {
-      res.status(200).json({
-        id: _id,
-        fullName,
-        email,
-        isSuperAdmin,
-        role,
-        collegeName: collegeName.collegeName,
-        isVerified: user.isVerified,
+      res.json({
+        message: "Successful",
+        data: { user, college },
+        isError: false,
       });
     }
   } catch (error) {
