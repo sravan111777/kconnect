@@ -22,6 +22,16 @@ const getAllCourses = async (req, res) => {
         .findOne({ collegeAdmin: adminId }, "plan")
         .exec();
 
+      if (!college) {
+        return res
+          .status(404)
+          .json({
+            message: "No college is associated with the user",
+            data: null,
+            isError: true,
+          });
+      }
+
       if (college.plan === "gold") {
         filter = ["gold", "silver", "bronze"];
       } else if (college.plan === "silver") {
@@ -38,6 +48,8 @@ const getAllCourses = async (req, res) => {
         isError: false,
       });
     } else if (req.user.role === "student") {
+      console.log("434");
+
       const studentId = req.user._id;
       const college = await collegeModel
         .findOne({ students: studentId }, "plan")
@@ -73,6 +85,7 @@ const getAllCourses = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(200).json({
       message: "Issue on server side.",
       error,

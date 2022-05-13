@@ -12,6 +12,8 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  subject: { type: String },
+  branch: { type: String },
   password: {
     type: String,
     required: true,

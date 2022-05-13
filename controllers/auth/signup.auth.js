@@ -12,7 +12,8 @@ const signup = async (req, res) => {
   const session = await startSession();
 
   try {
-    const { fullName, email, password, role, number } = req.body;
+    const { fullName, email, password, role, number, subject, branch } =
+      req.body;
     if (!fullName || !email || !password || !role || !number) {
       // no data, send error
       res.status(200).json({
@@ -50,6 +51,8 @@ const signup = async (req, res) => {
         const newUser = new userModel({
           fullName,
           email,
+          subject,
+          branch,
           password: hashPass,
           role,
           phoneNumber: number,
