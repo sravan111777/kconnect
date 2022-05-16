@@ -2,7 +2,7 @@ const courseModel = require("../../models/course.model");
 
 const updateCourse = async (req, res) => {
   try {
-    if (req.user.role !== "super_admin") {
+    if (req.user.role !== "super_admin" && req.user.role !== "college_admin") {
       res.status(401).json({
         message: "Not authorized to delete course.",
         data: null,

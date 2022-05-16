@@ -41,6 +41,7 @@ const getBannerUrl = require("./controllers/banner/getBannerUrl");
 const changeBannerUrl = require("./controllers/banner/changeBannerUrl");
 const updateCourse = require("./controllers/courses/updateCourse");
 const updateUserProfilePhoto = require("./controllers/user/updateUserProfilePhoto");
+const updateChapter = require("./controllers/courses/updateChapter");
 
 const router = Router();
 const formData = multer({
@@ -115,6 +116,7 @@ router.put("/course/updateCourse/:courseId", authCheck, updateCourse);
 
 router.get("/course/:courseId", authCheck, getCourse);
 router.get("/chapter/:chapterId", authCheck, getChapter);
+router.put("/chaper/updateChapter/:chapterId", authCheck, updateChapter);
 
 //delete course
 router.delete("/course/:courseId", authCheck, deleteCourse);
